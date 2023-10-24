@@ -1,57 +1,38 @@
-class calculator{
-    constructor(perviousOperandTextElement,currentOperandTextElement ){
-        this.perviousOperandTextElement = currentOperandTextElement
-        this.perviousOperandTextElement = currentOperandTextElement
-        this.clear()
+// DOM
+const touches = [...document.querySelectorAll('.bouton')];
+const listeKeycode = touches.map(touche => touche.dataset.key);
+const ecran = document.querySelector('.ecran');
+
+document.addEventListener('keydown', (e) => {
+    const valeur = e.keyCode.toString();
+    calculer(valeur)
+
+})
+
+document.addEventListener('click', (e) => {
+    const valeur = e.target.dataset.key;
+    calculer(valeur)
+
+})
+
+const calculer = (valeur) => {
+    if (listeKeycode.includes(valeur)) {
+        switch (valeur) {
+            case '8':
+                ecran.textContent = "";
+                break;
+            case '13':
+                const calcul = eval(ecran.textContent);
+                ecran.textContent = calcul;
+                break;
+            default:
+                const indexKeycode = listeKeycode.indexOf(valeur);
+                const touche = touches[indexKeycode];
+                ecran.textContent += touche.innerHTML;
+        }
     }
-
-
-    clear(){
-       this.currentOperand = ''
-       this.currentOperand = ''
-       this.currentOperand = ''
-    }
-
-    delete(){
-
-    }
-
-    appendNumber(Number){
-
-    }
-
-    chooseOperation(Operation){
-
-    }
-
-    compute(){
-
-    }
-
-    updateDisplay(){
-
-    }
-
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-const numberButtons = document.querySelectorAll('[dara-number]')
-const operationButtons = document.querySelectorAll('[dara-operation]')
-const equalsButton = document.querySelectorAll('[dara-equals]')
-const deletButton = document.querySelectorAll('[dara-delete]')
-const allCleanButton = document.querySelectorAll('[dara-all-Clean]')
-const perviousOperandTextElement = document.querySelectorAll('[dara-pervious-Operand]')
-const currentOperandTextElement = document.querySelectorAll('[dara-current-Operand]')
-
+window.addEventListener('error', (e) => {
+    alert('Une erreur est survenue dans votre calcul : ' + e.message)
+})
